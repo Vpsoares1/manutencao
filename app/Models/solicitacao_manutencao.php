@@ -17,4 +17,30 @@ class solicitacao_manutencao extends Model
         'bloco_id',
         
     ];
+
+    public function status_manutencao()
+    {
+        return $this->belongsTo(StatusManutencao::class, 'status_manutencao_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
+
+    public function funcionario()
+    {
+        return $this->belongsTo(Funcionario::class, 'funcionario_id');
+    }
+    
+    public function sala()
+    {
+        return $this->belongsTo(Sala::class, 'sala_id');
+    }
+    
+    public function bloco()
+    {
+        return $this->belongsTo(Bloco::class, 'bloco_id');
+    }
+
 }

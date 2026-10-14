@@ -14,4 +14,6 @@ class funcionario extends Model
         'email',
         
     ];
+
+
 }

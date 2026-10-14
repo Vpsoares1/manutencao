@@ -6,5 +6,10 @@ use Illuminate\Http\Request;
 
 class ManutencaoController extends Controller
 {
-    //
+    public function cadastro_html (Request $request)
+    {
+        return view('manutencao');
+    }
+
+    
 }
