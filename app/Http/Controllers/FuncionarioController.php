@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\funcionario;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class FuncionarioController extends Controller
 {
@@ -16,13 +18,13 @@ class FuncionarioController extends Controller
     {
         $request->validate([
             'cpf' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuario,email',
+            'email' => 'required|email|unique:funcionario,email',
             'senha' => 'required|string|',
         ]);
 
         try {
 
-            $funcionario = new Usuario;
+            $funcionario = new Funcionario;
             $funcionario->cpf = $request->cpf;
             $funcionario->email = $request->email;
             $funcionario->senha = Hash::make($request->senha);
@@ -36,10 +38,10 @@ class FuncionarioController extends Controller
 
     }
 
-    public function alterar_usuario(Request $request)
+    public function alterar_funcionario(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:usuario,id',
+            'id' => 'required|integer|exists:funcionario,id',
             'cpf' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'senha' => 'required|string|',
@@ -47,49 +49,49 @@ class FuncionarioController extends Controller
 
         try {
 
-            $usuario = Usuario::find($request->id);
+            $funcionario = Funcionario::find($request->id);
 
-            if($usuario->email !== $request->email) {
-                $usuario_email_igual = Usuario::where('email', $request->email)->first();
-                if ($usuario_email_igual) {
+            if($funcionario->email !== $request->email) {
+                $funcionario_email_igual = Funcionario::where('email', $request->email)->first();
+                if ($funcionario_email_igual) {
                     return response()->json(['message' => 'Email já cadastrado', 'erro' => 's'], 200);
                 }
             }
 
-            $usuario->cpf = $request->cpf;
-            $usuario->email = $request->email;
-            $usuario->senha = Hash::make($request->senha);
-            $usuario->save();
+            $funcionario->cpf = $request->cpf;
+            $funcionario->email = $request->email;
+            $funcionario->senha = Hash::make($request->senha);
+            $funcionario->save();
 
-            return response()->json(['message' => 'Usuário cadastrado com sucesso!', 'erro' => 'n'], 200);
+            return response()->json(['message' => 'Funcionário cadastrado com sucesso!', 'erro' => 'n'], 200);
 
         } catch (\throwable $th) {
-            return response()->json(['message' => 'Erro ao cadastrar usuário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
+            return response()->json(['message' => 'Erro ao cadastrar funcionário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
         }
 
     }
 
-     public function deletar_usuario(Request $request)
+     public function deletar_funcionario(Request $request)
     {
         $request->validate([
-            'id' => 'required|integer|exists:usuario,id',
+            'id' => 'required|integer|exists:funcionario,id',
         ]);
 
         try {
-            $usuario = Usuario::find($request->id);
-            $usuario->delete();
+            $funcionario = Funcionario::find($request->id);
+            $funcionario->delete();
 
-            return response()->json(['message' => 'Usuário deletado com sucesso!', 'erro' => 'n'], 200);
+            return response()->json(['message' => 'Funcionário deletado com sucesso!', 'erro' => 'n'], 200);
         } catch (\throwable $th) {
-            return response()->json(['message' => 'Erro ao deletar usuário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
+            return response()->json(['message' => 'Erro ao deletar funcionário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
         }
     }
 
-    public function listar_usuarios(Request $request)
+    public function listar_funcionario(Request $request)
     {
-        $usuarios = Usuario::all();
+        $funcionarios = Funcionario::all();
 
-        return response()->json(['usuarios' => $usuarios], 200);
+        return response()->json(['funcionarios' => $funcionarios], 200);
     }
 
 
