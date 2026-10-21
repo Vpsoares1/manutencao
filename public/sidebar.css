@@ -1,0 +1,124 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'outfit', sans-serif;
+}   
+
+body{
+    height: 100vh;
+}   
+
+nav.menu-lateral{
+    width: 300px;
+    height: 100%;
+    background-color: #12044e;
+    padding: 20px 0 40px 1%;
+    box-shadow: 3px 0 0 #230299;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: 1s;
+}
+
+nav.menu-lateral.expandir{
+    width: 300px;
+}
+
+.btn-expandir{
+    width: 100%;
+    padding: 10px;
+}
+.btn-expandir i{
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+}
+
+ul{
+    height: 100%;
+    list-style-type: none;
+}
+
+ul li.item-menu{
+    transition: 0.5s;  
+}
+
+
+ul li.item-menu:hover{
+    background-color: #1b0372;
+    transition: 0.3s;
+}
+
+ul li.item-menu a{
+    color: #fefefe;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 10px 4%;
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 40px;
+}
+
+ul li.item-menu a .txt-link{
+    margin-left: 40px;
+    transition: 0.5s;
+    opacity: 1;
+}
+
+
+ul li.item-menu a .icon >i{
+    font-size: 30px;
+}
+
+.logo-sidebar {
+    display: block;
+    width: 240px;
+    height: 75px;
+   
+    margin: 12px;
+}
+
+nav.menu-lateral.expandir .logo-sidebar {
+    width: 160px;
+    height: auto;
+    margin-left: 20px;
+}
+
+
+conteudo-principal {
+    margin-left: 300px;
+    padding: 24px;
+    width: calc(100% - 300px);
+}
+
+.conteudo-principal .table {
+    width: 85%;
+}
+
+
+.istok-web-regular {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.istok-web-bold {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.istok-web-regular-italic {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.istok-web-bold-italic {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}

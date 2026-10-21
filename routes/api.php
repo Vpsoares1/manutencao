@@ -10,6 +10,7 @@ use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\AdminController;
 
 
+//Usuarios//
 
 Route::post('/cadastro_usuario', [UsuarioController::class, 'salvar_usuario']);
 Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario']);
