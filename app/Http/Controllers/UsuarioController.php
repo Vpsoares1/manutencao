@@ -127,4 +127,20 @@ class UsuarioController extends Controller
         }
 
     }
+
+     public function logout_usuario(Request $request)
+    {
+        $request->validate([
+            'usuario_id' => 'required|integer|exists:usuario,id',
+        ]);
+
+        try {
+            $usuario = Usuario::where('id', $request->usuario_id)->first();
+            $usuario->delete();
+
+            return response()->json(['message' => 'Usuário deletado com sucesso!', 'erro' => 'n'], 200);
+        } catch (\throwable $th) {
+            return response()->json(['message' => 'Erro ao deletar usuário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
+        }
+    }
 }

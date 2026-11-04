@@ -62,5 +62,6 @@ Route::get('/listar_admin', [AdminController::class, 'listar_admin']);
 
 //Login//
 Route::post('/login', [UsuarioController::class, 'login']);
+Route::post('/logout_usuario', [UsuarioController::class, 'logout_usuario']);
 Route::post('/login_funcionario', [FuncionarioController::class, 'login_funcionario']);
-Route::post('/logout_funcionario', [FuncionarioController::class, 'logout']);
+Route::post('/logout_funcionario', [FuncionarioController::class, 'logout_funcionario']);
