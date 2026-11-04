@@ -8,13 +8,14 @@ use App\Http\Controllers\BlocoController;
 use App\Http\Controllers\SalasController;
 use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Middleware\LoginApiMiddleware;
 
 
 //Usuarios//
 
 Route::post('/cadastro_usuario', [UsuarioController::class, 'salvar_usuario']);
-Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario']);
-Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario']);
+Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario'])->middleware(LoginApiMiddleware::class);
+Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario'])->middleware(LoginApiMiddleware::class);
 Route::get('/listar_usuarios', [UsuarioController::class, 'listar_usuarios']);
 
 //Funcionarios//
@@ -58,3 +59,8 @@ Route::post('/cadastro_admin', [AdminController::class, 'salvar_admin']);
 Route::put('/alterar_admin', [AdminController::class, 'alterar_admin']);
 Route::delete('/deletar_admin', [AdminController::class, 'deletar_admin']);
 Route::get('/listar_admin', [AdminController::class, 'listar_admin']);
+
+//Login//
+Route::post('/login', [UsuarioController::class, 'login']);
+Route::post('/login_funcionario', [FuncionarioController::class, 'login_funcionario']);
+Route::post('/logout_funcionario', [FuncionarioController::class, 'logout']);

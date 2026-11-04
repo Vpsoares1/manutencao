@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\funcionario;
 use App\Models\Usuario;
+use App\Models\FuncionarioToken;
 use Illuminate\Support\Facades\Hash;
 
 class FuncionarioController extends Controller
@@ -94,6 +95,53 @@ class FuncionarioController extends Controller
         return response()->json(['funcionarios' => $funcionarios], 200);
     }
 
+    public function login_funcionario(Request $request)
+    {
+        $request->validate([
+            'senha' => 'required'
+        ]);
+
+        if($request->has('email')){
+             $funcionario = Funcionario::where('email', $request->email)->first();
+        }else if($request->has('cpf')){
+                $funcionario = Funcionario::where('cpf', $request->cpf)->first();
+        }else{
+            return response()->json(['message' => 'Email ou CPF não informado', 'erro' => 's'], 200);
+        }
+
+        if ($funcionario) {
+            if (Hash::check($request->senha, $funcionario->senha)) {
+                $funcionario_token = new FuncionarioToken;
+                $funcionario_token->funcionario_id = $funcionario->id;
+                $funcionario_token->token = Hash::make($funcionario->id . $funcionario->email . now());
+                $funcionario_token->valido_ate = now()->addDays(7);
+                $funcionario_token->save();
+                return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'token' => $funcionario_token->token], 200);
+            } else {
+                return response()->json(['message' => 'Senha incorreta', 'erro' => 's'], 200);
+            }
+
+        } else {
+            return response()->json(['message' => 'Funcionário não encontrado', 'erro' => 's'], 200);
+        }
+
+    }
+
+      public function logout(Request $request)
+    {
+        $request->validate([
+            'funcionario_id' => 'required|integer|exists:funcionario,id',
+        ]);
+
+        try {
+            $funcionario = Funcionario::where('id', $request->funcionario_id)->first();
+            $funcionario->delete();
+
+            return response()->json(['message' => 'Funcionário deletado com sucesso!', 'erro' => 'n'], 200);
+        } catch (\throwable $th) {
+            return response()->json(['message' => 'Erro ao deletar funcionário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
+        }
+    }
 
 
 }
