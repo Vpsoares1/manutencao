@@ -14,3 +14,4 @@ Route::get('/solicitacao', [SolicitacaoController::class, 'cadastro_html'])->nam
 Route::get('/manutencao', [ManutencaoController::class, 'cadastro_html'])->name('manutencao');
 Route::get('/login', [LoginController::class, 'cadastro_html'])->name('login');
 Route::get('/tela_funcionario', [FuncionarioController::class, 'cadastro_html'])->name('tela_funcionario');
+Route::get('/login_teste', [LoginController::class, 'login_teste'])->name('login_teste');

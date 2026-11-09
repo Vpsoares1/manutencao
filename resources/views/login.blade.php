@@ -18,16 +18,11 @@
                     </select>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control form-control-sm" id="cpf" name="cpf"
-                        placeholder="Digite seu CPF">
+                    <label for="cpfemail" class="form-label">CPF ou Email</label>
+                    <input type="text" class="form-control form-control-sm" id="cpfemail" name="cpf"
+                        placeholder="Digite seu CPF ou Email">
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control form-control-sm" id="email" name="email"
-                        placeholder="Digite seu email">
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-3" style="margin-left: 200px;">
                     <label for="senha" class="form-label">Senha</label>
                     <input type="password" class="form-control form-control-sm" id="senha" name="senha"
                         placeholder="Digite sua senha">

@@ -10,4 +10,9 @@ class LoginController extends Controller
     {
         return view('login');
     }
+
+    public function login_teste (Request $request)
+    {
+        return view('login_teste');
+    }
 }

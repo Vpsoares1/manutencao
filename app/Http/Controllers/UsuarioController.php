@@ -17,9 +17,9 @@ class UsuarioController extends Controller
     public function salvar_usuario(Request $request)
     {
         $request->validate([
-            'cpf' => 'required|string|max:255',
+            'cpf' => 'required|string|max:11',
             'email' => 'required|email|unique:usuario,email',
-            'senha' => 'required|string|',
+            'senha' => 'required|string|min:6',
         ]);
 
         try {
@@ -117,7 +117,7 @@ class UsuarioController extends Controller
                 $usuario_token->token = Hash::make($usuario->id . $usuario->email . now());
                 $usuario_token->valido_ate = now()->addDays(7);
                 $usuario_token->save();
-                return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'token' => $usuario_token->token], 200);
+                return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'token' => $usuario_token->token, 'usuario_id' => $usuario->id], 200);
             } else {
                 return response()->json(['message' => 'Senha incorreta', 'erro' => 's'], 200);
             }
@@ -135,12 +135,12 @@ class UsuarioController extends Controller
         ]);
 
         try {
-            $usuario = Usuario::where('id', $request->usuario_id)->first();
-            $usuario->delete();
+            $usuario_token = UsuarioToken::where('usuario_id', $request->usuario_id)->first();
+            $usuario_token->delete();
 
-            return response()->json(['message' => 'Usuário deletado com sucesso!', 'erro' => 'n'], 200);
+            return response()->json(['message' => 'Token de usuário deletado com sucesso!', 'erro' => 'n'], 200);
         } catch (\throwable $th) {
-            return response()->json(['message' => 'Erro ao deletar usuário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
+            return response()->json(['message' => 'Erro ao deletar token de usuário: ', 'erro' => 's', 'msg_erro' => $th->getMessage(), 'erro' => 's'], 200);
         }
     }
 }
