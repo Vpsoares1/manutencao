@@ -116,7 +116,7 @@ class FuncionarioController extends Controller
                 $funcionario_token->token = Hash::make($funcionario->id . $funcionario->email . now());
                 $funcionario_token->valido_ate = now()->addDays(7);
                 $funcionario_token->save();
-                return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'token' => $funcionario_token->token], 200);
+                return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'token' => $funcionario_token->token, 'funcionario_id' => $funcionario->id], 200);
             } else {
                 return response()->json(['message' => 'Senha incorreta', 'erro' => 's'], 200);
             }

@@ -1,28 +1,28 @@
 $(document).ready(function () {
 
-    $("#Entrar").click(function () {
+    $("#entrarBtn").click(function () {
 
 
-        if ($("#email").val() === "" && $("#senha").val() === "") {
+        if ($("#cpfemail").val() === "" && $("#senha2").val() === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Preencha o email e a senha!',
+                text: 'Preencha o CPF ou email e a senha!',
             });
             return;
         }
 
-        if ($("#email").val() === "") {
+        if ($("#cpfemail").val() === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Preencha o email!',
+                text: 'Preencha o CPF ou email!',
             });
             return;
         }
 
 
-        if ($("#senha").val() === "") {
+        if ($("#senha2").val() === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -31,7 +31,7 @@ $(document).ready(function () {
             return;
         }
 
-        var letras = $("#senha").val().length;
+        var letras = $("#senha2").val().length;
         if (letras < 6) {
             Swal.fire({
                 icon: 'error',
@@ -45,17 +45,16 @@ $(document).ready(function () {
             url: "../api/login",
             type: "POST",
             data: {
-                email: $("#email").val(),
-                senha: $("#senha").val()
+                email: $("#cpfemail").val(),
+                senha: $("#senha2").val()
             },
             success: function (response) {
                 console.log(response);
                 if (response.erro == 'n') {
-                    alert(response.token);
                     $.cookie("token", response.token, { expires: 7 });
                     $.cookie("usuario_id", response.usuario_id, { expires: 7 });
-                    SetTimeout(function () {
-                        window.location.href = "../home";
+                    setTimeout(function () {
+                        window.location.href = "../tela_funcionario";
                     }, 3000);
                 } else {
                     Swal.fire({

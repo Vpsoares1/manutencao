@@ -15,4 +15,9 @@ class LoginController extends Controller
     {
         return view('login_teste');
     }
+
+    public function login_funcionario (Request $request)
+    {
+        return view('login_funcionario');
+    }
 }
