@@ -101,15 +101,16 @@ class UsuarioController extends Controller
             'senha' => 'required',
         ]);
 
-         if($request->has('email')){
-             $usuario = Usuario::where('email', $request->email)->first();
-        }else if($request->has('cpf')){
-             $usuario = Usuario::where('cpf', $request->cpf)->first();
+         if(!is_numeric($request->login)){
+             $usuario = Usuario::where('email', $request->login)->first();
+        }else if($request->has('login')){
+                
+                $usuario = Usuario::where('cpf', $request->login)->first();
         }else{
             return response()->json(['message' => 'Email ou CPF não informado', 'erro' => 's'], 200);
         }
 
-        $usuario = Usuario::where('email', $request->email)->first();
+      
         if ($usuario) {
             if (Hash::check($request->senha, $usuario->senha)) {
                 $usuario_token = new UsuarioToken;

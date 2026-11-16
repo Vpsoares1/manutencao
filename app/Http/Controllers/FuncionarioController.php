@@ -100,11 +100,12 @@ class FuncionarioController extends Controller
         $request->validate([
             'senha' => 'required'
         ]);
-
-        if($request->has('email')){
-             $funcionario = Funcionario::where('email', $request->email)->first();
-        }else if($request->has('cpf')){
-                $funcionario = Funcionario::where('cpf', $request->cpf)->first();
+      
+        if(!is_numeric($request->login)){
+             $funcionario = Funcionario::where('email', $request->login)->first();
+        }else if($request->has('login')){
+                
+                $funcionario = Funcionario::where('cpf', $request->login)->first();
         }else{
             return response()->json(['message' => 'Email ou CPF não informado', 'erro' => 's'], 200);
         }

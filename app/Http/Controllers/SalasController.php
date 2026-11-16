@@ -84,4 +84,6 @@ class SalasController extends Controller
         return response()->json(['salas' => $salas], 200);
     }
 
+   
+
 }

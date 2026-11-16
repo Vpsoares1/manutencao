@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\solicitacao_manutencao;
 use App\Models\status_manutencao;
+use App\Models\Salas;
 
 
 
 class SolicitacaoController extends Controller
 {
-    public function cadastro_html (Request $request)
-    {
-        return view('solicitacao');
-    }
+    
 
     public function salvar_status(Request $request)
     {
@@ -174,6 +172,13 @@ class SolicitacaoController extends Controller
         return response()->json(['solicitacoes' => $solicitacoes], 200);
     }
 
+
+     public function cadastro_solicitacao_html(Request $request)
+    {
+        $salas = Salas::all();
+        $status = status_manutencao::all();
+        return view('solicitacao')->with(['salas' => $salas, 'status' => $status]);
+    }
 
      
 }

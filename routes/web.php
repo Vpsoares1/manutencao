@@ -13,7 +13,7 @@ use App\Http\Middleware\FuncionarioLoginMiddleware;
 
 
 Route::get('/cadastro', [UsuarioController::class, 'cadastro_html'])->name('cadastro');
-Route::get('/solicitacao', [SolicitacaoController::class, 'cadastro_html'])->name('solicitacao');
+Route::get('/solicitacao', [SolicitacaoController::class, 'cadastro_solicitacao_html'])->name('solicitacao');
 Route::get('/manutencao', [ManutencaoController::class, 'cadastro_html'])->name('manutencao')->middleware(FuncionarioLoginMiddleware::class);
 Route::get('/login', [LoginController::class, 'cadastro_html'])->name('login');
 Route::get('/tela_funcionario', [FuncionarioController::class, 'cadastro_html'])->name('tela_funcionario')->middleware(LogadoWebMiddleware::class);

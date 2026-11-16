@@ -45,7 +45,7 @@ $(document).ready(function () {
             url: "../api/login",
             type: "POST",
             data: {
-                email: $("#cpfemail").val(),
+                login: $("#cpfemail").val(),
                 senha: $("#senha2").val()
             },
             success: function (response) {

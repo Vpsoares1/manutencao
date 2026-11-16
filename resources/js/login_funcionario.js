@@ -45,9 +45,8 @@ $(document).ready(function () {
             url: "../api/login_funcionario",
             type: "POST",
             data: {
-                email: $("#cpfemail2").val(),
+                login: $("#cpfemail2").val(),
                 senha: $("#senha3").val(),
-                cpf: $("#cpfemail2").val()
                 
             },
             success: function (response) {
