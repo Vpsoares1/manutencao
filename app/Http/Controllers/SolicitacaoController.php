@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Salas;
 use App\Models\solicitacao_manutencao;
 use App\Models\status_manutencao;
-use App\Models\Salas;
-
-
+use App\Models\Usuario;
+use Illuminate\Http\Request;
 
 class SolicitacaoController extends Controller
 {
-    
-
     public function salvar_status(Request $request)
     {
         $request->validate([
@@ -38,14 +35,14 @@ class SolicitacaoController extends Controller
         $request->validate([
             'id' => 'required|integer|exists:status_manutencao,id',
             'descricao' => 'required|string|max:255',
-            
+
         ]);
 
         try {
 
             $status = status_manutencao::find($request->id);
 
-            if($status->descricao !== $request->descricao) {
+            if ($status->descricao !== $request->descricao) {
                 $status_descricao_igual = status_manutencao::where('descricao', $request->descricao)->first();
                 if ($status_descricao_igual) {
                     return response()->json(['message' => 'Descrição já cadastrada', 'erro' => 's'], 200);
@@ -91,21 +88,23 @@ class SolicitacaoController extends Controller
         $request->validate([
             'descricao' => 'required|string',
             'status_manutencao_id' => 'required|exists:status_manutencao,id',
-            'usuario_id' => 'nullable|integer|exists:usuario,id',
+            'usuario_id_cadastro' => 'nullable|integer|exists:usuario,id',
             'funcionario_id' => 'nullable|integer|exists:funcionario,id',
             'sala_id' => 'required|integer|exists:salas,id',
-            'bloco_id' => 'required|integer|exists:bloco,id',
+
         ]);
 
         try {
+            $sala = Salas::find($request->sala_id);
 
+          
             $soli = new solicitacao_manutencao;
             $soli->descricao = $request->descricao;
             $soli->status_manutencao_id = $request->status_manutencao_id;
-            $soli->usuario_id = $request->usuario_id;
+            $soli->usuario_id = $request->usuario_id_cadastro;
             $soli->funcionario_id = $request->funcionario_id;
             $soli->sala_id = $request->sala_id;
-            $soli->bloco_id = $request->bloco_id;
+            $soli->bloco_id = $sala->bloco_id;
             $soli->save();
 
             return response()->json(['message' => 'Solicitação cadastrada com sucesso!', 'erro' => 'n'], 200);
@@ -122,23 +121,25 @@ class SolicitacaoController extends Controller
             'id' => 'required|integer|exists:funcionario,id',
             'descricao' => 'required|string',
             'status_manutencao_id' => 'required|exists:status_manutencao,id',
-            'usuario_id' => 'nullable|integer|exists:usuario,id',
+            'usuario_id_cadastro' => 'nullable|integer|exists:usuario,id',
             'funcionario_id' => 'nullable|integer|exists:funcionario,id',
             'sala_id' => 'required|integer|exists:salas,id',
-            'bloco_id' => 'required|integer|exists:bloco,id',
+
         ]);
 
         try {
 
             $solicitacao = solicitacao_manutencao::find($request->id);
-
+            $sala = Salas::find($request->sala_id);
 
             $solicitacao->descricao = $request->descricao;
             $solicitacao->status_manutencao_id = $request->status_manutencao_id;
-            $solicitacao->usuario_id = $request->usuario_id;
+            $solicitacao->usuario_id = $request->usuario_id_cadastro;
             $solicitacao->funcionario_id = $request->funcionario_id;
             $solicitacao->sala_id = $request->sala_id;
-            $solicitacao->bloco_id = $request->bloco_id;
+            $solicitacao->bloco_id = $sala->bloco_id;
+            
+
             $solicitacao->save();
 
             return response()->json(['message' => 'Solicitação alterada com sucesso!', 'erro' => 'n'], 200);
@@ -165,20 +166,21 @@ class SolicitacaoController extends Controller
         }
     }
 
-     public function listar_solicitacao(Request $request)
+    public function listar_solicitacao(Request $request)
     {
         $solicitacoes = solicitacao_manutencao::all();
 
         return response()->json(['solicitacoes' => $solicitacoes], 200);
     }
 
-
-     public function cadastro_solicitacao_html(Request $request)
+    public function cadastro_solicitacao_html(Request $request)
     {
         $salas = Salas::all();
         $status = status_manutencao::all();
-        return view('solicitacao')->with(['salas' => $salas, 'status' => $status]);
+        $solicitante = Usuario::all();
+
+        return view('solicitacao')->with(['salas' => $salas, 'status' => $status, 'solicitante' => $solicitante]);
     }
 
-     
+    
 }

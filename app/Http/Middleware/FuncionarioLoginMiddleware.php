@@ -40,7 +40,7 @@ class FuncionarioLoginMiddleware
 
             return $next($request);
         } else {
-             dd("AQUI 3 ");
+           
             Cookie::forget('token');
             Cookie::forget('funcionario_id');
 

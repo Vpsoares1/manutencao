@@ -15,6 +15,8 @@ class solicitacao_manutencao extends Model
         'funcionario_id',
         'sala_id',
         'bloco_id',
+        'created_at',
+        'updated_at',
         
     ];
 

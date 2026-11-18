@@ -35,10 +35,12 @@
 
             </li>
         </ul>
-        
+
     </nav>
-    <h1  class="istok-web-bold"style="margin-left: 450px; margin-top: 50px; color: #12044e; font-size: 45px;">Solicitações de Manutenção</h1>
-    <h1  class="istok-web-bold" style="margin-left: 450px; margin-top: 10px; color: #12044e; font-size: 20px;">Acompanhe e gerencie todas as
+    <h1 class="istok-web-bold"style="margin-left: 450px; margin-top: 50px; color: #12044e; font-size: 45px;">
+        Solicitações de Manutenção</h1>
+    <h1 class="istok-web-bold" style="margin-left: 450px; margin-top: 10px; color: #12044e; font-size: 20px;">Acompanhe
+        e gerencie todas as
         solicitações de manutenção do sistema SESI</h1>
     <div class="row justify-content-center d-flex" style="margin-left: 230px;">
         <div class="col-8 rounded-3 shadow-lg p-3 mb-5 mt-2 bg-body-tertiary">
@@ -50,8 +52,8 @@
                         <input type="text" class="form-control" placeholder="Digite o nome do usuário"
                             aria-label="Username" aria-describedby="basic-addon1">
                     </div>
-
                 </div>
+
                 <div class="form-field col-lg-3 col-md-2 col-sm-12 mt-3">
                     <label for="fieldSelect" class="form-label">Blocos</label>
                     <select class="form-select form-select-md" id="fieldSelect">
@@ -78,61 +80,31 @@
         </div>
     </div>
 
-
     <div class="conteudo-principal">
         <div class="table-responsive">
             <table class="table mt-3">
-                <table class="table table-striped col-lg-4 col-md-4 col-sm-12 mt-3" style="margin-left: 280px;">
+                <table class="table table-striped col-lg-4 col-md-4 col-sm-12 mt-3" style="margin-left: 300px;">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                           
                             <th scope="col">Solicitante</th>
                             <th scope="col">Bloco</th>
                             <th scope="col">Sala</th>
-                            <th scope="col">Descrição</th>
-                            <th scope="col">Data</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Descrição</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($dados as $d)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Vinicius</td>
-                            <td>Bloco 2</td>
-                            <td>Sala DS</td>
-                            <td>Problema com a lâmpada</td>
-                            <td>2023-10-01</td>
-                            <td>Pendente</td>
+                            <td>{{ $d->email }}</td>
+                            <td>{{ $d->bloco_nome }}</td>
+                            <td>{{ $d->sala_nome }}</td>
+                            <td>{{ $d->status_descricao }}</td>
+                            <td>{{ $d->solicitacao_descricao }}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Daniel</td>
-                            <td>Bloco 2</td>
-                            <td>Sala DS</td>
-                            <td>Problema com o computador</td>
-                            <td>2023-10-02</td>
-                            <td>Em andamento</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Sheila</td>
-                            <td>Bloco 1</td>
-                            <td>Sala 4</td>
-                            <td>Problema com o projetor</td>
-                            <td>2023-10-03</td>
-                            <td>Concluído</td>
-                        </tr>
-                    </tbody>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Handle</th>
-                        </tr>
+                         @endforeach
                     </thead>
                 </table>
             </table>

@@ -35,8 +35,11 @@
             <div class="row justify-content-left d-flex" style="margin-left: 30px;">
                 <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
                     <label for="solicitante" class="form-label">Solicitante</label>
-                    <input type="text" class="form-control form-control-sm" id="solicitante" name="solicitante"
-                        placeholder="Digite seu nome">
+                   <select class="form-select form-select-sm" id="solicitanteSelect">
+                        @foreach ($solicitante as $soli)
+                            <option value="{{ $soli['id'] }}">{{ $soli['email'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 mt-3">
                     <label for="statusSelect" class="form-label">Status</label>
@@ -60,8 +63,7 @@
                     <textarea class="form-control" id="descricao" rows="4"></textarea>
                 </div>
                 <div class="col-12 d-flex justify-content-center gap-3 mt-5 mb-3">
-                    <button type="button" class="btn btn-outline-primary"> Esqueci a senha </button>
-                    <button type="button" class="btn btn-primary"> Entrar </button>
+                    <button type="button" class="btn btn-primary" id="cadastrar"> Cadastrar </button>
                 </div>
             </div>
         </div>
